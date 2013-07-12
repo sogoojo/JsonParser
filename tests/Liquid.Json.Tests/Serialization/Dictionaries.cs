@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Liquid.Json.Tests.Serialization
+{
+    [TestClass]
+    public class Dictionaries
+    {
+        public TestContext TestContext { get; set; }
+
+        [TestMethod, TestCategory("Serialization")]
+        public void StringDictionary()
+        {
+            var serializer = new JsonSerializer();
+            var dict = new Dictionary<string, string> {
+                { "a", "b" },
+                { "c", "d" },
+                { "e", "f" }
+            };
+            Assert.AreEqual("{\"a\": \"b\", \"c\": \"d\", \"e\": \"f\"}", serializer.Serialize(dict));
+        }
+
+        [TestMethod, TestCategory("Serialization")]
+        public void IntDictionary()
+        {
+            var serializer = new JsonSerializer();
+            var dict = new Dictionary<int, int> {
+                { 1, 2 },
+                { 3, 4 },
+                { 5, 6 }
+            };
+            Assert.AreEqual("{\"1\": 2, \"3\": 4, \"5\": 6}", serializer.Serialize(dict));
+        }
+
+        [TestMethod, TestCategory("Serialization")]
+        public void NullDictionary()
+        {
+            var serializer = new JsonSerializer();
+            string result = serializer.Serialize<IDictionary<string, string>>(null);
+            Assert.AreEqual("null", result);
+        }
+    }
+}

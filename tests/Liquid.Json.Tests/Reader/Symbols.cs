@@ -1,0 +1,70 @@
+﻿using System;
+using System.IO;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Liquid.Json.Tests.Reader
+{
+    [TestClass]
+    public class Symbols
+    {
+        [TestMethod, TestCategory("Reader")]
+        public void ReadsObjectStart()
+        {
+            var sr = new StringReader("{");
+            var reader = new JsonReader(sr);
+            Assert.IsTrue(reader.ReadNext(), "Failed read");
+            Assert.AreEqual(JsonTokenType.ObjectStart, reader.Token);
+            Assert.AreEqual("{", reader.Text);
+        }
+
+        [TestMethod, TestCategory("Reader")]
+        public void ReadsObjectEnd()
+        {
+            var sr = new StringReader("}");
+            var reader = new JsonReader(sr);
+            Assert.IsTrue(reader.ReadNext(), "Failed read");
+            Assert.AreEqual(JsonTokenType.ObjectEnd, reader.Token);
+            Assert.AreEqual("}", reader.Text);
+        }
+
+        [TestMethod, TestCategory("Reader")]
+        public void ReadsArrayStart()
+        {
+            var sr = new StringReader("[");
+            var reader = new JsonReader(sr);
+            Assert.IsTrue(reader.ReadNext(), "Failed read");
+            Assert.AreEqual(JsonTokenType.ArrayStart, reader.Token);
+            Assert.AreEqual("[", reader.Text);
+        }
+
+        [TestMethod, TestCategory("Reader")]
+        public void ReadsArrayEnd()
+        {
+            var sr = new StringReader("]");
+            var reader = new JsonReader(sr);
+            Assert.IsTrue(reader.ReadNext(), "Failed read");
+            Assert.AreEqual(JsonTokenType.ArrayEnd, reader.Token);
+            Assert.AreEqual("]", reader.Text);
+        }
+
+        [TestMethod, TestCategory("Reader")]
+        public void ReadsComma()
+        {
+            var sr = new StringReader(",");
+            var reader = new JsonReader(sr);
+            Assert.IsTrue(reader.ReadNext(), "Failed read");
+            Assert.AreEqual(JsonTokenType.Comma, reader.Token);
+            Assert.AreEqual(",", reader.Text);
+        }
+
+        [TestMethod, TestCategory("Reader")]
+        public void ReadsColon()
+        {
+            var sr = new StringReader(":");
+            var reader = new JsonReader(sr);
+            Assert.IsTrue(reader.ReadNext(), "Failed read");
+            Assert.AreEqual(JsonTokenType.Colon, reader.Token);
+            Assert.AreEqual(":", reader.Text);
+        }
+    }
+}
