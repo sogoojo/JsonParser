@@ -10,6 +10,8 @@ namespace Liquid.Json
     /// An object serializer factory, with a fuelt interface capable of specifiying which members to serialze/deserialize.
     /// </summary>
     /// <typeparam name="S"></typeparam>
+	//Typeparam name
+	//<summaery>
     public class JsonObjectSerializerFactory<S> : IJsonTypeSerializerFactory
     {
         private readonly List<MemberInfo> members = new List<MemberInfo>();
